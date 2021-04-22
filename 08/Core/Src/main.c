@@ -15,6 +15,7 @@
   *                        opensource.org/licenses/BSD-3-Clause
   *
   ******************************************************************************
+  More infomation about stm32cube monitor :https://wiki.st.com/stm32mcu/wiki/STM32CubeMonitor
   */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
@@ -45,7 +46,7 @@ UART_HandleTypeDef huart2;
 /* USER CODE BEGIN PV */
 float AngleInput =0;
 float SineOutput =0;
-float ChangeRate =0.1;
+double ChangeRate =0.1;
 float OutputAmp = 1;
 uint32_t timeStamp =0;
 /* USER CODE END PV */
@@ -107,7 +108,9 @@ int main(void)
 	  if(HAL_GetTick()-timeStamp > 0)//Set Process @ 1kHz
 	  {
 		  timeStamp = HAL_GetTick();
+
 		  AngleInput += ChangeRate;
+
 		  if (AngleInput > 2*M_PI)
 		  {
 			  AngleInput -= 2*M_PI;
@@ -116,6 +119,8 @@ int main(void)
 		  {
 			  AngleInput +=  2*M_PI;
 		  }
+
+
 		  SineOutput = sin(AngleInput) * OutputAmp;
 	  }
   }
